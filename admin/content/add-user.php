@@ -1,7 +1,7 @@
 <?php
 
 include '../database/koneksi.php';
-
+session_start();
 // jika button simpan di tekan
 if (isset($_POST['simpan'])) {
     $id_level = $_POST['id_level'];
@@ -11,20 +11,32 @@ if (isset($_POST['simpan'])) {
     $email = $_POST['email'];
     $pass = $_POST['password'];
 
-    //ambil data dari list level
-    $selectLevel = mysqli_query($koneksi, "SELECT * FROM level WHERE id = '$id_level'");
-    $dataLevel = mysqli_fetch_assoc($selectLevel);
-    $nama_level = $dataLevel['nama_level'];
+    if (!empty($_FILES['foto']['name'])) {
+        $nama_foto = $_FILES['foto']['name'];
+        $ukuran_foto = $_FILES['foto']['size'];
 
-    // insert data ke database
-    $insert = mysqli_query($koneksi, "INSERT INTO user (id_level, level, nama_lengkap, no_telepon, alamat, email, password) VALUES ('$id_level', '$nama_level', '$nama_lengkap', '$no_telepon', '$alamat', '$email', '$pass')");
-    header("location: customer.php?tambah=berhasil");
+
+        $ext = array('png', 'jpg', 'jpeg');
+        $extFoto = pathinfo($nama_foto, PATHINFO_EXTENSION);
+
+        if (!in_array($extFoto, $ext)) {
+            echo "Ext tidak ditemukan";
+            die;
+        } else {
+            move_uploaded_file($_FILES['foto']['tmp_name'], '../upload/' . $nama_foto);
+            $insert = mysqli_query($koneksi, "INSERT INTO user (id_level, nama_lengkap, no_telepon, alamat, email, password,foto) VALUES ('$id_level', '$nama_lengkap', '$no_telepon', '$alamat', '$email', '$pass','$nama_foto')");
+            header("location: customer.php?tambah=berhasil");
+        }
+    } else {
+        $insert = mysqli_query($koneksi, "INSERT INTO user (id_level, nama_lengkap, no_telepon, alamat, email, password) VALUES ('$id_level', '$nama_lengkap', '$no_telepon', '$alamat', '$email', '$pass')");
+    }
+    // header("location: customer.php?tambah=berhasil");
 }
 
 
-$id  = isset($_GET['edit']) ? $_GET['edit'] : '';
-$queryEdit = mysqli_query($koneksi, "SELECT * FROM user WHERE id ='$id'");
-$rowEdit   = mysqli_fetch_assoc($queryEdit);
+$idUser  = isset($_GET['edit']) ? $_GET['edit'] : '';
+$queryEditUser = mysqli_query($koneksi, "SELECT level.nama_level, user.* FROM user LEFT JOIN level on user.id_level = level.id WHERE user.id ='$idUser'");
+$rowEditUser   = mysqli_fetch_assoc($queryEditUser);
 
 
 // jika button edit di klik
@@ -34,22 +46,46 @@ if (isset($_POST['edit'])) {
     $nama_lengkap = $_POST['nama_lengkap'];
     $no_telepon = $_POST['no_telepon'];
     $alamat = $_POST['alamat'];
+    $email = $_POST['email'];
+    $pass = $_POST['password'];
 
-    //ambil data dari list level
-    $inputtLevel = mysqli_query($koneksi, "SELECT * FROM level WHERE id = '$id_level'");
-    $resultLevel = mysqli_fetch_assoc($inputtLevel);
-    $nama_level = $resultLevel['nama_level'];
+    if (!empty($_FILES['foto']['name'])) {
+        $nama_foto = $_FILES['foto']['name'];
+        $ukuran_foto = $_FILES['foto']['size'];
 
-    // insert data ke database
+        // png, jpg, jpeg
+        $ext = array('png', 'jpg', 'jpeg');
+        $extFoto = pathinfo($nama_foto, PATHINFO_EXTENSION);
 
-    $update = mysqli_query($koneksi, "UPDATE user SET 
-    id_level = '$id_level',
-    level = '$nama_level',
-    nama_lengkap='$nama_lengkap',
-    no_telepon='$no_telepon', 
-    alamat='$alamat' 
-     WHERE id='$id'");
-    header("location:customer.php?ubah=berhasil");
+        if (!in_array($extFoto, $ext)) {
+            echo "Extensi gambar tidak ditemukan";
+            die;
+        } else {
+            unlink('../upload/' . $rowEditUser['foto']);
+            move_uploaded_file($_FILES['foto']['tmp_name'], '../upload/' . $nama_foto);
+
+            $update = mysqli_query($koneksi, "UPDATE user SET 
+                id_level = '$id_level',
+                nama_lengkap = '$nama_lengkap',
+                no_telepon = '$no_telepon', 
+                alamat = '$alamat',
+                email = '$email',
+                password = '$pass',
+                foto = '$nama_foto'
+                WHERE id = '$idUser'");
+            header("location:customer.php?ubah=berhasil");
+        }
+    } else {
+        $update = mysqli_query($koneksi, "UPDATE user SET 
+            id_level = '$id_level',
+            nama_lengkap = '$nama_lengkap',
+            no_telepon = '$no_telepon', 
+            alamat = '$alamat',
+            email = '$email',
+            password = '$pass'
+            WHERE id = '$idUser'");
+    }
+    header("location: customer.php?ubah=berhasil");
 }
 
 // ambil data dari level
@@ -70,8 +106,6 @@ $queryLevel = mysqli_query($koneksi, "SELECT * FROM level");
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-
-    <title>SB Admin 2 - Blank</title>
 
     <?php include '../layout/head.php' ?>
 
@@ -120,7 +154,7 @@ $queryLevel = mysqli_query($koneksi, "SELECT * FROM level");
                                                     name="nama_lengkap"
                                                     placeholder="Masukkan nama user anda"
                                                     required
-                                                    value="<?php echo isset($_GET['edit']) ? $rowEdit['nama_lengkap'] : '' ?>">
+                                                    value="<?php echo isset($_GET['edit']) ? $rowEditUser['nama_lengkap'] : '' ?>">
                                             </div>
                                             <div class="col-sm-6">
                                                 <label for="" class="form-label">Tambah Email</label>
@@ -129,7 +163,7 @@ $queryLevel = mysqli_query($koneksi, "SELECT * FROM level");
                                                     name="email"
                                                     placeholder="Masukkan email anda"
                                                     required
-                                                    value="<?php echo isset($_GET['edit']) ? $rowEdit['email'] : '' ?>">
+                                                    value="<?php echo isset($_GET['edit']) ? $rowEditUser['email'] : '' ?>">
                                             </div>
                                             <div class="col-sm-6">
                                                 <label for="" class="form-label">Nomor Telepon</label>
@@ -138,7 +172,7 @@ $queryLevel = mysqli_query($koneksi, "SELECT * FROM level");
                                                     name="no_telepon"
                                                     placeholder="Masukkan nomor telepon anda"
                                                     required
-                                                    value="<?php echo isset($_GET['edit']) ? $rowEdit['no_telepon'] : '' ?>">
+                                                    value="<?php echo isset($_GET['edit']) ? $rowEditUser['no_telepon'] : '' ?>">
                                             </div>
                                             <div class="col-sm-6">
                                                 <label for="" class="form-label">Alamat</label>
@@ -147,25 +181,33 @@ $queryLevel = mysqli_query($koneksi, "SELECT * FROM level");
                                                     name="alamat"
                                                     placeholder="Masukkan nama user disini"
                                                     required
-                                                    value="<?php echo isset($_GET['edit']) ? $rowEdit['alamat'] : '' ?>">
+                                                    value="<?php echo isset($_GET['edit']) ? $rowEditUser['alamat'] : '' ?>">
                                             </div>
                                             <div class="col-sm-6">
                                                 <label for="" class="form-label">Password</label>
-                                                <input type="text"
+                                                <input type="password"
                                                     class="form-control"
                                                     name="password"
                                                     placeholder="Masukkan password disini"
                                                     required
-                                                    value="<?php echo isset($_GET['edit']) ? $rowEdit['password'] : '' ?>">
+                                                    value="<?php echo isset($_GET['edit']) ? $rowEditUser['password'] : '' ?>">
                                             </div>
                                             <div class="col-sm-6">
                                                 <label for="" class="form-label">Level</label>
                                                 <select name="id_level" class="form-control" id="">
-                                                    <option value="">--Pilih Level---</option>
+                                                    <option value="<?php echo isset($_GET['edit']) ? $rowEditUser['id_level'] : '' ?>"><?php echo isset($_GET['edit']) ? $rowEditUser['nama_level'] : '--Pilih barang--' ?></option>
                                                     <?php while ($rowLevel = mysqli_fetch_assoc($queryLevel)) { ?>
                                                         <option value="<?php echo $rowLevel['id'] ?>"><?php echo $rowLevel['nama_level'] ?></option>
                                                     <?php } ?>
                                                 </select>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label for="" class="form-label">Foto</label>
+                                                <input type="file"
+                                                    class="form-control"
+                                                    name="foto"
+                                                    placeholder="Masukkan foto disini"
+                                                    value="<?php echo isset($_GET['edit']) ? $rowEditUser['foto'] : '' ?>">
                                             </div>
 
                                         </div>
@@ -202,24 +244,7 @@ $queryLevel = mysqli_query($koneksi, "SELECT * FROM level");
     </a>
 
     <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
-                </div>
-            </div>
-        </div>
-    </div>
+    <?php include '../layout/logout-modal.php' ?>
 
     <?php include '../layout/js.php' ?>
 

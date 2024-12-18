@@ -1,8 +1,17 @@
 <?php
 session_start();
 include '../database/koneksi.php';
-// munculkan / pilih sebuah atau semua kolom dari table layanan
-$querylayanan = mysqli_query($koneksi, "SELECT * FROM layanan");
+// munculkan / pilih sebuah atau semua kolom dari table 
+$queryPembelian = mysqli_query($koneksi, "SELECT 
+penjualan.*,
+detail_paket.* 
+    FROM
+detail_paket
+    LEFT JOIN 
+penjualan 
+    ON 
+detail_paket.id_penjualan = penjualan.id");
+
 // mysqli_fetch_assoc($query) = untuk menjadikan hasil query menjadi sebuah data (object,array)
 
 // jika parameternya ada ?delete=nilai param
@@ -10,8 +19,8 @@ if (isset($_GET['delete'])) {
     $id = $_GET['delete']; //mengambil nilai params
 
     // query / perintah hapus
-    $delete = mysqli_query($koneksi, "DELETE FROM layanan  WHERE id ='$id'");
-    header("location:layanan.php?hapus=berhasil");
+    $delete = mysqli_query($koneksi, "DELETE FROM detail_paket  WHERE id ='$id'");
+    header("location:purchase_detail.php?hapus=berhasil");
 }
 ?>
 
@@ -26,7 +35,6 @@ if (isset($_GET['delete'])) {
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Blank</title>
 
     <?php include '../layout/head.php' ?>
 
@@ -58,7 +66,7 @@ if (isset($_GET['delete'])) {
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card">
-                                <div class="card-header">Data layanan</div>
+                                <div class="card-header">Data Pembelian</div>
                                 <div class="card-body">
                                     <?php if (isset($_GET['hapus'])): ?>
                                         <div class="alert alert-success" role="alert">
@@ -66,13 +74,14 @@ if (isset($_GET['delete'])) {
                                         </div>
                                     <?php endif ?>
                                     <div align="right" class="mb-3">
-                                        <a href="tambah-layanan.php" class="btn btn-primary">Tambah</a>
+                                        <a href="transaksi.php" class="btn btn-primary">Tambah</a>
                                     </div>
                                     <div class="table-responsive">
                                         <table class="table table-bordered">
                                             <thead>
                                                 <tr>
                                                     <th>No</th>
+                                                    <th>Nomor Invoice</th>
                                                     <th>Nama Paket</th>
                                                     <th>Harga Paket</th>
                                                     <th>Deskripsi Paket</th>
@@ -82,21 +91,21 @@ if (isset($_GET['delete'])) {
                                             </thead>
                                             <tbody>
                                                 <?php $no = 1;
-                                                while ($rowlayanan = mysqli_fetch_assoc($querylayanan)) { ?>
+                                                while ($rowPembelian = mysqli_fetch_assoc($queryPembelian)) { ?>
                                                     <tr>
                                                         <td><?php echo $no++ ?></td>
-                                                        <td><?php echo $rowlayanan['nama_paket'] ?></td>
-                                                        <td><?php echo $rowlayanan['harga'] ?></td>
-                                                        <td><?php echo $rowlayanan['deskripsi'] ?></td>
+                                                        <td><?php echo $rowPembelian['kode_transaksi'] ?></td>
+                                                        <td><?php echo $rowPembelian['nama_pengguna'] ?></td>
+                                                        <td><?php echo $rowPembelian['harga'] ?></td>
+                                                        <td><?php echo $rowPembelian['total_harga'] ?></td>
                                                         <td>
-                                                            <a href="tambah-layanan.php?edit=<?php echo $rowlayanan['id'] ?>" class="btn btn-success btn-sm">
-                                                                <span class="tf-icon bx bx-pencil bx-18px "></span>
-                                                            </a>
                                                             <a onclick="return confirm('Apakah anda yakin akan menghapus data ini??')"
-                                                                href="layanan.php?delete=<?php echo $rowlayanan['id'] ?>" class="btn btn-danger btn-sm">
+                                                                href="purchase_detail.php?delete=<?php echo $rowPembelian['id'] ?>" class="btn btn-danger btn-sm">
                                                                 <span class="tf-icon bx bx-trash bx-18px "></span>
                                                             </a>
-
+                                                            <a href="transaksi.php?detail=<?php echo $rowPembelian['id_penjualan'] ?>" class="btn btn-primary btn-sm">
+                                                                <span class="tf-icon bx bx-show bx-18px "></span>
+                                                            </a>
                                                         </td>
                                                     </tr>
                                                 <?php } ?>
@@ -106,6 +115,7 @@ if (isset($_GET['delete'])) {
                                 </div>
                             </div>
                         </div>
+
                     </div>
 
                 </div>
@@ -117,8 +127,8 @@ if (isset($_GET['delete'])) {
             <!-- Footer -->
             <?php include '../layout/footer.php' ?>
             <!-- End of Footer -->
-
         </div>
+
         <!-- End of Content Wrapper -->
 
     </div>
@@ -143,7 +153,7 @@ if (isset($_GET['delete'])) {
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <a class="btn btn-primary" href="keluar.php">Logout</a>
                 </div>
             </div>
         </div>

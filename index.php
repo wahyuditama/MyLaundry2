@@ -18,7 +18,7 @@
                         <img src="admin/img/home-logo.png" class="img-fluid w-50" alt="">
                     </div>
                     <div class="my-3 d-flex justify-content-center">
-                        <a href="admin/content/login.php" class="btn btn-primary w-50">Gabung Sekarang</a>
+                        <a href="admin/content/login.php" class="btn btn-primary w-50">Masuk Sekarang</a>
                     </div>
                 </div>
             </div>

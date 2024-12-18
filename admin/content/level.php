@@ -1,6 +1,7 @@
 <?php
 
 include '../database/koneksi.php';
+session_start();
 
 $sqlLevel = mysqli_query($koneksi, "SELECT * FROM level ");
 
@@ -26,8 +27,6 @@ if (isset($_GET['delete'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-
-    <title>SB Admin 2 - Blank</title>
 
     <?php include '../layout/head.php' ?>
 
@@ -57,7 +56,7 @@ if (isset($_GET['delete'])) {
 
                     <!-- Page Heading -->
                     <div class="row">
-                        <div class="col-md-8 offset-2">
+                        <div class="col-md-12 text-center">
                             <div class="card">
                                 <div class="card-header">Level</div>
                                 <div class="card-body">
@@ -77,8 +76,8 @@ if (isset($_GET['delete'])) {
                                                         <td><?php echo $no++ ?></td>
                                                         <td><?php echo $resultLevel['nama_level'] ?></td>
                                                         <td>
-                                                            <a class="btn btn-primary" href="tambah-level.php">Tambah Level</a>
-                                                            <a class="btn btn-success" href="tambah-level.php?edit=<?php echo $resultLevel['id'] ?>">Edit Level</a>
+                                                            <a class="btn btn-primary" href="add-level.php">Tambah Level</a>
+                                                            <a class="btn btn-success" href="add-level.php?edit=<?php echo $resultLevel['id'] ?>">Edit Level</a>
                                                             <a href="level.php?delete=<?php echo $resultLevel['id'] ?>" class="btn btn-danger" onclick="return confirm('Apakah anda yakin akan menghapus data ini?')">Delete</a>
                                                         </td>
                                                     </tr>

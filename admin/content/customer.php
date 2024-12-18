@@ -2,7 +2,7 @@
 session_start();
 include '../database/koneksi.php';
 // munculkan / pilih sebuah atau semua kolom dari table user
-$queryuser = mysqli_query($koneksi, "SELECT * FROM user");
+$queryuser = mysqli_query($koneksi, "SELECT level.nama_level, user.* FROM user LEFT JOIN level ON level.id = user.id_level WHERE user.id");
 // mysqli_fetch_assoc($query) = untuk menjadikan hasil query menjadi sebuah data (object,array)
 
 // jika parameternya ada ?delete=nilai param
@@ -25,8 +25,6 @@ if (isset($_GET['delete'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-
-    <title>SB Admin 2 - Blank</title>
 
     <?php include '../layout/head.php' ?>
 
@@ -56,7 +54,7 @@ if (isset($_GET['delete'])) {
 
                     <!-- Page Heading -->
                     <div class="row">
-                        <div class="col-md-8 offset-2">
+                        <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header">Data user</div>
                                 <div class="card-body">
@@ -66,7 +64,7 @@ if (isset($_GET['delete'])) {
                                         </div>
                                     <?php endif ?>
                                     <div align="right" class="mb-3">
-                                        <a href="tambah-pengguna.php" class="btn btn-primary">Tambah</a>
+                                        <a href="add-pengguna.php" class="btn btn-primary">Tambah</a>
                                     </div>
                                     <div class="table-responsive">
                                         <table class="table table-bordered">
@@ -86,12 +84,12 @@ if (isset($_GET['delete'])) {
                                                 while ($rowuser = mysqli_fetch_assoc($queryuser)) { ?>
                                                     <tr>
                                                         <td><?php echo $no++ ?></td>
-                                                        <td><?php echo $rowuser['level'] ?></td>
+                                                        <td><?php echo $rowuser['nama_level'] ?></td>
                                                         <td><?php echo $rowuser['nama_lengkap'] ?></td>
                                                         <td><?php echo $rowuser['no_telepon'] ?></td>
                                                         <td><?php echo $rowuser['alamat'] ?></td>
                                                         <td>
-                                                            <a href="tambah-pengguna.php?edit=<?php echo $rowuser['id'] ?>" class="btn btn-success btn-sm">
+                                                            <a href="add-user.php?edit=<?php echo $rowuser['id'] ?>" class="btn btn-success btn-sm">
                                                                 <span class="tf-icon bx bx-pencil bx-18px "></span>
                                                             </a>
                                                             <a onclick="return confirm('Apakah anda yakin akan menghapus data ini??')"
@@ -145,7 +143,7 @@ if (isset($_GET['delete'])) {
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <a class="btn btn-primary" href="keluar.php">Logout</a>
                 </div>
             </div>
         </div>

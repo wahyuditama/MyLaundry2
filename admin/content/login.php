@@ -14,7 +14,10 @@ if (isset($_POST['login'])) {
 
         if ($row['email'] == $email && $row['password'] == $pass) {
             $_SESSION['ID'] = $row['id'];
-            $_SESSION['NAMALevel'] = $row['id_level'];
+            $_SESSION['NamaLevel'] = $row['id_level'];
+            $_SESSION['namaPengguna'] = $row['nama_lengkap'];
+            $_SESSION['Email'] = $row['email'];
+            $_SESSION['Telepon'] = $row['no_telepon'];
             header("Location: index.php");
             exit();
         }
@@ -56,7 +59,7 @@ if (isset($_POST['login'])) {
                             <div class="col-lg-6 d-none d-lg-block bg-login-image">
                                 <div class="card">
                                     <div class="card-body">
-                                        <img src="../img/home-logo.png" class="img-fluid" alt="">
+                                        <img src="../img/home-logo.png" class="img-fluid" alt="" style="margin-top:10rem;padding-bottom:5rem;">
                                     </div>
                                 </div>
                             </div>
