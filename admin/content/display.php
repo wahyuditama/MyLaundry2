@@ -69,7 +69,7 @@ if (isset($_GET['delete'])) {
                     <div class="col-md-12">
                         <div class="card shadow  bg-body-tertiary rounded">
                             <div class="card-header d-flex justify-content-between">
-                                <a href="" class="btn-md">Data Barang</a>
+                                <a href="" class="btn-md fw-bold">Data Barang</a>
                                 <?php if ($_SESSION['NamaLevel'] == 1): ?>
                                     <a href="add-barang.php" class="btn-sm btn-primary">Tambah Deskripsi Barang</a>
                                 <?php endif ?>
@@ -97,7 +97,7 @@ if (isset($_GET['delete'])) {
                                                             <?php endif ?>
                                                             </a>
                                                             <?php if ($_SESSION['NamaLevel'] == 1) : ?>
-                                                                <a href="tambah-data-barang.php?edit=<?php echo $rowDetailBarang['id'] ?>" class="btn-sm btn-success"><i class='bx bx-edit'></i></a>
+                                                                <a href="add-barang.php?edit=<?php echo $rowDetailBarang['id'] ?>" class="btn-sm btn-success"><i class='bx bx-edit'></i></a>
                                                                 <a href="display.php?delete=<?php echo $rowDetailBarang['id'] ?>" onclick="return confirm('Apa anda yakin ingin menghapus ?')" class="btn-sm btn-danger btnDetail"><i class='bx bx-trash'></i></a>
                                                             <?php endif; ?>
                                                     </div>

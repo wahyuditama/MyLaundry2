@@ -1,7 +1,7 @@
 <?php
 
 include '../database/koneksi.php';
-
+session_start();
 //query tambah level
 if (isset($_POST['tambah'])) {
     $nama_level = $_POST['nama_level'];

@@ -62,7 +62,7 @@ if (isset($_POST['edit'])) {
             $update = mysqli_query($koneksi, "UPDATE suggestion SET 
              id_user = '$user',  
             deskripsi = '$deskripsi',  
-            catatatan = '$catt', 
+            catatan = '$catt', 
             foto = '$nama_foto'
         WHERE id = '$id'");
         }
@@ -70,12 +70,10 @@ if (isset($_POST['edit'])) {
         $update = mysqli_query($koneksi, "UPDATE suggestion SET 
          id_user = '$user', 
         deskripsi = '$deskripsi',  
-        catatatan = '$catt'
+        catatan = '$catt'
     WHERE id = '$id'");
     }
-    print_r($update);
-    die();
-    // header("location:suggestion.php?ubah=berhasil");
+    header("location:suggestion.php?ubah=berhasil");
 }
 
 $resultUser = mysqli_query($koneksi, "SELECT * FROM user");
@@ -90,7 +88,15 @@ while ($data = mysqli_fetch_assoc($resultSuggestion)) {
     $rowData[] = $data;
 }
 
+// query delet suggestion 
 
+if (isset($_GET['delete'])) {
+    $id = $_GET['delete']; //mengambil nilai params
+
+    // query / perintah hapus
+    $delete = mysqli_query($koneksi, "DELETE FROM suggestion  WHERE id ='$id'");
+    header("location:suggestion.php?hapus=berhasil");
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -154,7 +160,7 @@ while ($data = mysqli_fetch_assoc($resultSuggestion)) {
                                                     <input type="text"
                                                         class="form-control"
                                                         placeholder="<?php echo $inputUser['nama_lengkap'] ?>"
-                                                        value="<?php echo isset($_GET['edit']) ? isset($_SESSION['NamaPengguna']) : '' ?>">
+                                                        value="<?php echo isset($_GET['edit']) ? isset($_SESSION['NamaPengguna']) : '' ?>" readonly>
                                                     <input type="hidden" name="id_user" value="<?php echo $inputUser['id'] ?>">
                                                 </div>
                                                 <div class="col-sm-6 mb-3">
@@ -198,106 +204,46 @@ while ($data = mysqli_fetch_assoc($resultSuggestion)) {
                             </div>
                         </div>
                     <?php else : ?>
-                        <h1 class="h3 mb-1 text-gray-800">Border Utilities</h1>
-                        <a href="suggestion.php?tambah=" class="btn btn-primary mb-3">Tambah</a>
-                        <!-- <p class="mb-4">Bootstrap's default utility classes can be found on the official <a
-                                href="../https://getbootstrap.com/docs">Bootstrap Documentation</a> page. The custom utilities
-                            below were created to extend this theme past the default utility classes built into Bootstrap's
-                            framework.</p> -->
+                        <div class="card shadow p-3 mb-5 bg-body rounded">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h1 class="btn btn-warning mb-1 fw-bold text-dark">Kritik & Saran</h1>
+                                    <div class="card p-3 shadow">
+                                        <p class="mb-4 text-justify">Bagian dari kritik & saran ini dapat membantu pada Dokumentasi <span class="text-primary">W-olshop</span> kami . Serta secara khusus di bawah ini dibuat untuk memperluas tema ini melampaui kelas waktu kami yang ada dalam kerangka pekerjaan dimasa mendatang.</p>
+                                    </div>
+                                    <a href="suggestion.php?tambah=" class="btn btn-primary my-3" width="20%">Tambah</a>
+                                </div>
+                                <div class="col-md-6 d-flex ">
+                                    <img src="../img/home-logo.png" class="w-50 mx-auto h-50 mt-5" alt="">
+                                </div>
+                            </div>
+                            <!-- Content Row -->
+                            <div class="row">
 
-                        <!-- Content Row -->
-                        <div class="row">
-
-                            <!-- Border Left Utilities -->
-                            <div class="col-lg-6">
+                                <!-- Border Left Utilities -->
                                 <?php foreach ($rowData as $value) : ?>
-                                    <div class="card mb-4 py-3 border-left-info">
-                                        <div class="card-hedaer">
-                                            <img src="../upload/<?php echo $value['foto'] ?> " width="50" height="50" class="rounded-circle mx-3" alt="">
-                                        </div>
-                                        <div class="card-body">
-                                            <?php echo $value['deskripsi'] ?>
-                                            <p></p>
-                                        </div>
-                                        <div class="card-footer">
-                                            <a href="suggestion.php?edit=<?php echo $value['id'] ?>" class="btn-sm btn-primary me-auto">edit</a>
+                                    <div class="col-lg-6">
+                                        <div class="card mb-4 py-3 border-left-info shadow p-3 mb-5 bg-body rounded">
+                                            <div class="card-hedaer">
+                                                <img src="../upload/<?php echo $value['foto'] ?> " width="50" height="50" class="rounded-circle mx-3" alt="">
+                                                <a href=""><?php echo $value['nama_lengkap'] ?></a>
+                                            </div>
+                                            <div class="card card-body my-2">
+                                                <?php echo $value['deskripsi'] ?>
+                                                <p></p>
+                                            </div>
+                                            <div class="card-footer">
+                                                <?php if ($_SESSION['NamaLevel'] == 1) : ?>
+                                                    <a href="suggestion.php?edit=<?php echo $value['id'] ?>" class="btn-sm btn-primary me-auto">edit</a>
+                                                    <a href="suggestion.php?delete=<?php echo $value['id'] ?>" onclick="return confirm('Apa anda yakin ingin menghapus ?')" class="btn-sm btn-danger btnDetail"><i class='bx bx-trash'></i></a>
+                                                <?php endif ?>
+                                            </div>
                                         </div>
                                     </div>
                                 <?php endforeach; ?>
-                                <div class="card mb-4 py-3 border-left-info">
-                                    <div class="card-body">
-                                        .border-left-info
-                                    </div>
-                                </div>
-
-                                <div class="card mb-4 py-3 border-left-warning">
-                                    <div class="card-body">
-                                        .border-left-warning
-                                    </div>
-                                </div>
-
-                                <div class="card mb-4 py-3 border-left-danger">
-                                    <div class="card-body">
-                                        .border-left-danger
-                                    </div>
-                                </div>
-
-                                <div class="card mb-4 py-3 border-left-dark">
-                                    <div class="card-body">
-                                        .border-left-dark
-                                    </div>
-                                </div>
-
+                                <!-- End Section-Tambah  -->
+                            <?php endif; ?>
                             </div>
-
-                            <!-- Border Bottom Utilities -->
-                            <div class="col-lg-6">
-
-                                <div class="card mb-4 py-3 border-bottom-primary">
-                                    <div class="card-body">
-                                        .border-bottom-primary
-                                    </div>
-                                </div>
-
-                                <div class="card mb-4 py-3 border-bottom-secondary">
-                                    <div class="card-body">
-                                        .border-bottom-secondary
-                                    </div>
-                                </div>
-
-                                <div class="card mb-4 py-3 border-bottom-success">
-                                    <div class="card-body">
-                                        .border-bottom-success
-                                    </div>
-                                </div>
-
-                                <div class="card mb-4 py-3 border-bottom-info">
-                                    <div class="card-body">
-                                        .border-bottom-info
-                                    </div>
-                                </div>
-
-                                <div class="card mb-4 py-3 border-bottom-warning">
-                                    <div class="card-body">
-                                        .border-bottom-warning
-                                    </div>
-                                </div>
-
-                                <div class="card mb-4 py-3 border-bottom-danger">
-                                    <div class="card-body">
-                                        .border-bottom-danger
-                                    </div>
-                                </div>
-
-                                <div class="card mb-4 py-3 border-bottom-dark">
-                                    <div class="card-body">
-                                        .border-bottom-dark
-                                    </div>
-                                </div>
-
-                            </div>
-
-                        <?php endif; ?>
                         </div>
 
                 </div>

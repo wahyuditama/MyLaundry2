@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 17, 2024 at 06:18 PM
+-- Generation Time: Dec 20, 2024 at 04:21 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -52,8 +52,8 @@ INSERT INTO `barang` (`id`, `id_kategori`, `inv_barang`, `nama_barang`, `satuan`
 (27, 1, 'TRB-20241214021141', 'Oreo', 'Pcs', 16, 50000, 'CSS', 'Powerful, extensible, and feature-packed frontend toolkit. Build and customize with Sass, utilize pr', 'lorem ipsum dolor site amet', 'oreo.jpg', '2024-12-12 05:54:06', '2024-12-15 16:13:31'),
 (30, 1, 'TRB-20241214021225', 'Tanggo  Wafer', 'Pcs', 12, 6000, 'CSS', 'Powerful, extensible, and feature-packed frontend toolkit. ', 'lorem ipsum dolor site amet', 'tanggo-wafer.jpg', '2024-12-12 12:49:15', '2024-12-15 16:36:29'),
 (31, 2, 'TRB-20241214021245', 'Teh Pucuk', 'Pcs', 12, 5000, 'CSS', 'Powerful, extensible, and feature-packed frontend toolkit. ', 'lorem ipsum dolor site amet', 'teh-pucuk.jpg', '2024-12-12 17:48:26', '2024-12-15 17:04:44'),
-(34, 1, 'TRB-20241215035333', 'Sari Roti', 'Pcs', 21, 5000, 'CSS', 'Powerful, extensible, and feature-packed frontend toolkit. Build and customize with Sass, utilize pr', 'lorem ipsum dolor site amet', '5.jpg', '2024-12-15 14:54:12', '2024-12-15 16:13:31'),
-(35, 1, 'TRB-20241215050821', 'Roma Malkis', 'Pcs', 16, 10000, 'CSS', 'Powerful, extensible, and feature-packed frontend toolkit. Build and customize with Sass, utilize pr', 'lorem ipsum dolor site amet', '5.jpg', '2024-12-15 16:09:03', '2024-12-15 16:09:03');
+(34, 1, 'TRB-20241220025621', 'Sari Roti', 'Pcs', 21, 5000, 'CSS', 'Powerful, extensible, and feature-packed frontend toolkit. Build and customize with Sass, utilize pr', 'lorem ipsum dolor site amet', 'Sari Roti.png', '2024-12-15 14:54:12', '2024-12-20 13:57:56'),
+(35, 1, 'TRB-20241220025825', 'Roma Malkis', 'Pcs', 16, 10000, 'CSS', 'Powerful, extensible, and feature-packed frontend toolkit. Build and customize with Sass, utilize pr', 'lorem ipsum dolor site amet', 'Roma-Malkis.jpg', '2024-12-15 16:09:03', '2024-12-20 13:59:08');
 
 -- --------------------------------------------------------
 
@@ -202,10 +202,11 @@ CREATE TABLE `suggestion` (
 --
 
 INSERT INTO `suggestion` (`id`, `id_user`, `deskripsi`, `catatan`, `foto`, `create_at`, `update_at`) VALUES
-(1, 2, 'ipsum dolor', 'lorem', '5.jpg', '2024-12-17 14:15:06', '2024-12-17 14:15:06'),
-(38, 2, 'lorem2', 'lorem2', '3.jpg', '2024-12-17 16:05:38', '2024-12-17 16:05:38'),
-(42, 2, 'lorem3', 'lorem3', '', '2024-12-17 16:14:33', '2024-12-17 16:14:33'),
-(43, 2, 'lorem4', 'lorem', '1.jpg', '2024-12-17 16:15:06', '2024-12-17 16:15:06');
+(1, 1, 'ipsum dolor', 'lorem', '5.jpg', '2024-12-17 14:15:06', '2024-12-18 08:37:51'),
+(38, 2, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vitae tellus augue. Fusce gravida cu', 'lorm', '3.jpg', '2024-12-17 16:05:38', '2024-12-18 08:37:56'),
+(42, 3, ' Morbi ut nisi fringilla nunc egestas venenatis at a nibh. Aenean in elit nec sapien ullamcorper rho', 'Anton Bastian', '19.jpg', '2024-12-17 16:14:33', '2024-12-18 08:38:01'),
+(43, 1, ' Donec vel eros id metus bibendum eleifend in ut quam. Nam vehicula id orci et convallis.Agregos avi', 'lorem', '1.jpg', '2024-12-17 16:15:06', '2024-12-18 08:43:33'),
+(44, 5, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vitae tellus augue. Fusce gravida cu', 'lorem', '', '2024-12-18 08:19:41', '2024-12-18 08:38:11');
 
 -- --------------------------------------------------------
 
@@ -231,13 +232,13 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `id_level`, `nama_lengkap`, `email`, `no_telepon`, `alamat`, `password`, `foto`, `create_at`, `update_at`) VALUES
-(2, 1, 'admin', 'admin@gmail.com', '566556', 'jakarta', '123', '', '2024-11-30 10:18:59', '2024-11-30 14:40:58'),
-(4, 2, 'ibnu ibrahim', 'pimpinan@gmail.com', '566556', 'bandung', '123', '', '2024-11-30 14:28:41', '2024-11-30 14:28:41'),
-(5, 3, 'yoimia', 'adminAPK@gmail.com', '566556', 'jakarta', '123', '', '2024-11-30 16:05:54', '2024-11-30 16:05:54'),
-(6, 5, 'yono', 'yono@gmail.com', '56655666', 'jakarta', '123', '', '2024-11-30 16:06:58', '2024-11-30 16:06:58'),
-(17, 5, 'budi aryanto', 'budiiskander@gmail.com', '88003084747', 'Uhledar', '123', '', '2024-12-14 20:30:01', '2024-12-14 20:30:01'),
-(20, 5, 'ryo ibrahim', 'ryo@gmail.com', '7939393', 'Bogor', '123', '', '2024-12-14 20:59:05', '2024-12-14 20:59:05'),
-(21, 5, 'yohan2', 'yohan@gmail.com', '566556', 'sukabumi', '123', '5.jpg', '2024-12-15 17:54:19', '2024-12-15 18:25:38');
+(1, 1, 'admin', 'admin@gmail.com', '566556', 'jakarta', '123', '', '2024-11-30 10:18:59', '2024-12-18 08:37:13'),
+(2, 2, 'ibnu ibrahim', 'pimpinan@gmail.com', '566556', 'bandung', '123', '', '2024-11-30 14:28:41', '2024-12-18 08:37:20'),
+(3, 3, 'yoimia', 'adminAPK@gmail.com', '566556', 'jakarta', '123', '', '2024-11-30 16:05:54', '2024-12-18 08:37:24'),
+(4, 5, 'yono', 'yono@gmail.com', '56655666', 'jakarta', '123', '', '2024-11-30 16:06:58', '2024-12-18 08:37:28'),
+(5, 5, 'budi aryanto', 'budiiskander@gmail.com', '88003084747', 'Uhledar', '123', '', '2024-12-14 20:30:01', '2024-12-18 08:37:33'),
+(6, 5, 'ryo ibrahim', 'ryo@gmail.com', '7939393', 'Bogor', '123', '', '2024-12-14 20:59:05', '2024-12-18 08:37:38'),
+(7, 5, 'yohan2', 'yohan@gmail.com', '566556', 'sukabumi', '123', '5.jpg', '2024-12-15 17:54:19', '2024-12-18 08:37:42');
 
 --
 -- Indexes for dumped tables
@@ -328,7 +329,7 @@ ALTER TABLE `penjualan`
 -- AUTO_INCREMENT for table `suggestion`
 --
 ALTER TABLE `suggestion`
-  MODIFY `id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- AUTO_INCREMENT for table `user`

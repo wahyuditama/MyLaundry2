@@ -38,14 +38,11 @@
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Admin Akses</h6>
-                    <a class="collapse-item" href="level.php"> Level</a>
-                    <a class="collapse-item" href="add-level.php">Tambah Level</a>
-                    <a class="collapse-item" href="customer.php">Customer</a>
-                    <a class="collapse-item" href="add-user.php">Tambah Pengguna</a>
-                    <a class="collapse-item" href="add-barang.php">Tambah Barang</a>
-                    <!-- <a class="collapse-item" href="tambah-data-barang.php">Tambah Deskripsi Barang</a> -->
-                    <a class="collapse-item" href="../html/buttons.html">Buttons</a>
-                    <a class="collapse-item" href="../html/cards.html">Cards</a>
+                    <a class="collapse-item" href="../content/level.php"> Level</a>
+                    <a class="collapse-item" href="../content/add-level.php">Tambah Level</a>
+                    <a class="collapse-item" href="../content/customer.php">Data Pengguna</a>
+                    <a class="collapse-item" href="../content/add-user.php">Tambah Pengguna</a>
+                    <a class="collapse-item" href="../content/add-barang.php">Tambah Barang</a>
                 </div>
             </div>
         </li>
@@ -87,12 +84,11 @@
                 data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header"></h6>
-                    <a class="collapse-item" href="display.php">Etalase Toko</a>
-                    <a class="collapse-item" href="transaksi.php">Transaksi Barang</a>
+                    <a class="collapse-item" href="../content/display.php">Etalase Toko</a>
+                    <a class="collapse-item" href="../content/transaksi.php">Transaksi Barang</a>
                     <a class="collapse-item" href="../html/Brand.php">Brand Utilities</a>
                     <a class="collapse-item" href="../html/suggestion.php">suggestions</a>
                     <a class="collapse-item" href="../html/utilities-animation.html">Animations</a>
-                    <a class="collapse-item" href="../html/utilities-other.html">Other</a>
                 </div>
             </div>
         </li>
@@ -130,14 +126,14 @@
 
     <!-- Nav Item - Charts -->
     <li class="nav-item">
-        <a class="nav-link" href="../html/charts.html">
+        <a class="nav-link" href="../html/charts.php">
             <i class="fas fa-fw fa-chart-area"></i>
             <span>Charts</span></a>
     </li>
 
     <!-- Nav Item - Tables -->
     <li class="nav-item">
-        <a class="nav-link" href="../html/tables.html">
+        <a class="nav-link" href="../html/tables.php">
             <i class="fas fa-fw fa-table"></i>
             <span>Tables</span></a>
     </li>

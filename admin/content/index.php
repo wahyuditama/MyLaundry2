@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 ?>
 <!DOCTYPE html>
@@ -41,8 +42,8 @@ session_start();
                     <!-- Page Heading -->
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center mb-4">
-                        <h3 class="mb-0 text-gray-800">Selamat Datang :</h3>
-                        <h3 href="#" class="d-none d-sm-inline-block text-primary shadow-sm"> </i><?php echo isset($_SESSION['namaPengguna']) ? $_SESSION['namaPengguna'] : '' ?></h3>
+                        <h3 class="mb-0 text-gray-800">Selamat Datang : </h3>
+                        <h3 href="#" class="d-none d-sm-inline-block text-primary shadow-sm"></i> <?php echo isset($_SESSION['namaPengguna']) ? $_SESSION['namaPengguna'] : '' ?></h3>
                     </div>
 
                     <!-- Content Row -->
@@ -161,7 +162,35 @@ session_start();
                                 <!-- Card Body -->
                                 <div class="card-body">
                                     <div class="chart-area">
-                                        <canvas id="myAreaChart"></canvas>
+                                        <!-- <canvas id="myAreaChart"></canvas> -->
+                                        <div class="card">
+                                            <div id="carouselExampleDark" class="carousel carousel-dark slide">
+                                                <div class="carousel-indicators">
+                                                    <a type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></a>
+                                                    <a type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></a>
+                                                    <a type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></a>
+                                                </div>
+                                                <div class="carousel-inner">
+                                                    <div class="carousel-item active" data-bs-interval="10000">
+                                                        <img src="https://picsum.photos/800/800?food" class="d-block w-100" style="width: 30rem; height:20rem;" alt="...">
+                                                    </div>
+                                                    <div class="carousel-item" data-bs-interval="2000">
+                                                        <img src="https://picsum.photos/800/800?drink" class="d-block w-100" style="width: 30rem; height:20rem;" alt="...">
+                                                    </div>
+                                                    <div class="carousel-item">
+                                                        <img src="https://picsum.photos/800/800?nature" class="d-block w-100" style="width: 30rem; height:20rem;" alt="...">
+                                                    </div>
+                                                </div>
+                                                <a class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+                                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                    <!-- <span class="visually-hidden">Previous</span> -->
+                                                </a>
+                                                <a class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+                                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                    <!-- <span class="visually-hidden">Next</span> -->
+                                                </a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
