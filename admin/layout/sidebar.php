@@ -61,9 +61,9 @@
                 data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header"></h6>
-                    <a class="collapse-item" href="item-data-detail.php">Detail Data Barang</a>
-                    <a class="collapse-item" href="purchase_detail.php">Data Pembelian</a>
-                    <a class="collapse-item" href="display.php">Etalase Toko</a>
+                    <a class="collapse-item" href="../content/item-data-detail.php">Detail Data Barang</a>
+                    <a class="collapse-item" href="../content/purchase_detail.php">Data Pembelian</a>
+                    <a class="collapse-item" href="../content/display.php">Etalase Toko</a>
                 </div>
             </div>
         </li>
@@ -88,7 +88,6 @@
                     <a class="collapse-item" href="../content/transaksi.php">Transaksi Barang</a>
                     <a class="collapse-item" href="../html/Brand.php">Brand Utilities</a>
                     <a class="collapse-item" href="../html/suggestion.php">suggestions</a>
-                    <a class="collapse-item" href="../html/utilities-animation.html">Animations</a>
                 </div>
             </div>
         </li>
